@@ -1,0 +1,193 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js"></script>
+</head>
+<body>
+<style>
+#description {
+  width: 350px;
+  height: 350px;
+}
+
+#code_output {
+  width: 100%;
+  height: 325px;
+  background-color: rgb(3, 10, 62);
+  color: lime;
+  display: none;
+}
+
+.nav-logo {
+    padding: 17px 0px;
+    float: left;
+    width: auto;
+    border: none;
+    outline: none;
+    display: block;
+    font-size: 1.2em;
+ 
+}
+
+.nav-button {
+  margin: 17px 0px;
+    float: left;
+    width: auto;
+    border: none;
+    outline: none;
+    display: block;
+}
+
+ #editor { 
+       width: 100%;
+  height: 325px;  
+    }
+</style>
+   <!--nav bar-->
+   <div class="w3-bar w3-border w3-card-2 w3-white">
+      <a class="w3-bar-item w3-text-grey w3-padding"><i class="fa fa-moon-o fa-3x w3-text-indigo"></i></a>
+      <a class="nav-logo w3-text-grey" style="font-family: 'Syncopate', sans-serif;">CREST</a>
+      <div class="w3-right">
+      <a class="w3-bar-item"><input id="page_id" style="width:300px" class="w3-input w3-round w3-border" placeholder="Page Name | Section Name" type="text"></a>
+      <i class="w3-bar-item fa-3x fa fa-plus-square-o w3-text-indigo w3-btn"></i>
+      <i class="w3-bar-item fa-3x fa fa-minus-square-o w3-text-indigo w3-btn"></i>
+      </div>
+   </div>
+<div class="w3-row">
+     <div class="w3-col s4">
+  	    <div class="w3-border w3-round w3-container w3-margin w3-light-grey">
+           <h2>Headline</h2>
+                  <p><label>Setting Title</label>
+                      <input id="head_title" class="w3-input w3-border w3-round" placeholder="Setting Title" type="text"></p>
+
+                      <p><label>Headline text</label>
+                       <input id="head_text" class="w3-input w3-border w3-round" placeholder="Headline" type="text"></p>
+  
+                      <p><label>Headline classifier</label>
+                      <input id="head_class" class="w3-input w3-border w3-round" placeholder="Headline Classifier" type="text"></p>
+  
+                      <button class="w3-margin w3-indigo w3-card-2 w3-round w3-btn" onclick="addhead();">Add Headline!</button>
+                    </div>
+                   </div>
+
+  <div class="w3-col s4">
+  	  	<div class="w3-border w3-round w3-container w3-margin w3-light-grey">
+  <h2>Description</h2>
+
+  <p><label>Setting Title</label>
+  <input id="descript_title" class="w3-input w3-border w3-round" placeholder="Setting Title" type="text"></p>
+
+  <p><label>Description Text</label>
+  <input id="descript_text" class="w3-input w3-border w3-round" placeholder="Headline" type="text"></p>
+  
+  <p><label>Description classifier</label>
+  <input id="descript_class" class="w3-input w3-border w3-round" placeholder="Headline Classifier" type="text"></p>
+  
+  <button class="w3-margin w3-indigo w3-card-2 w3-round w3-btn" onclick="addscript();">Add Description!</button>
+  </div>
+</div>
+<div class="w3-col s4">
+	 	<div class="w3-border w3-round w3-container w3-margin w3-light-grey">
+  <h2>Image</h2>
+
+  <p><label>Setting Title</label>
+  <input id="image_title" class="w3-input w3-border w3-round" placeholder="Setting Title" type="text"></p>
+
+  <p><label>Image classifier</label>
+  <input id="image_class" class="w3-input w3-border w3-round" placeholder="Headline Classifier" type="text"></p>
+  
+  <button class="w3-margin w3-indigo w3-card-2 w3-round w3-btn" onclick="addimage();">Add Image!</button>
+  </div>
+</div>
+
+<textarea id="code_output" placeholder="Code Output"></textarea>
+<div id="editor">&lt;?php
+</div>
+
+
+<script>
+// wordpress Editable Content code generator;
+// Bryce Mercines 2017
+
+function addhead(){
+ // ace editor set value.
+ var editor = ace.edit("editor");	
+ //creates a blog of code for the headline section..
+ var stitle = document.getElementById("head_title").value;
+ var hline = document.getElementById("head_text").value;
+ var headline_classifier = document.getElementById("head_class").value;
+ var codebin = document.getElementById("code_output");
+ // add title
+  codebin.innerHTML = " ";
+  codebin.innerHTML += " //"+stitle+"&#13;&#10;&#13;&#10;";
+  codebin.innerHTML += " $wp_customize->add_setting('"+headline_classifier+"',array(&#13;&#10;";
+  codebin.innerHTML +=	"'default' => '"+hline+"'&#13;&#10;";
+  codebin.innerHTML +=	"));&#13;&#10;";
+  codebin.innerHTML += "&#13;&#10;";
+  codebin.innerHTML += "$wp_customize->add_control(new WP_Customize_Control($wp_customize, '"+headline_classifier+"_control', array(&#13;&#10;";
+  codebin.innerHTML +=  "	'label' => '"+stitle+"',&#13;&#10;";
+  codebin.innerHTML +=  " 	'section' => 'bb_demo_session',&#13;&#10;";
+  codebin.innerHTML +=  "	'settings' => '"+headline_classifier+"'&#13;&#10;";
+  codebin.innerHTML += 	")));&#13;&#10;&#13;&#10;";
+  editor.insert(document.getElementById('code_output').value,1);  
+}
+
+// function for creating descritions, multi line stuff
+
+ function addscript() {
+ 	 // ace editor set value.
+    var editor = ace.edit("editor");
+ 	var stitle = document.getElementById("descript_title").value;
+ 	var descript_text = document.getElementById("descript_text").value;
+ 	var descript_classifier = document.getElementById("descript_class").value;
+    var codebin = document.getElementById("code_output");
+
+  codebin.innerHTML = " ";
+  codebin.innerHTML += " //"+stitle+"&#13;&#10;&#13;&#10;";
+  codebin.innerHTML += " $wp_customize->add_setting('"+descript_classifier+"',array(&#13;&#10;";
+  codebin.innerHTML +=	"&quot;default&quot; => &quot;"+descript_text+"&quot;&#13;&#10;";
+  codebin.innerHTML +=	"));&#13;&#10;";
+  codebin.innerHTML += "&#13;&#10;";
+  codebin.innerHTML += "$wp_customize->add_control(new WP_Customize_Control($wp_customize, '"+descript_classifier+"_control', array(&#13;&#10;";
+  codebin.innerHTML +=  "	'label' => '"+stitle+"',&#13;&#10;";
+  codebin.innerHTML +=  " 	'section' => 'bb_demo_session',&#13;&#10;";
+  codebin.innerHTML +=  "	'settings' => '"+descript_classifier+"',&#13;&#10;";
+  codebin.innerHTML +=  "	'type' => 'textarea'&#13;&#10;";
+  codebin.innerHTML += 	")));&#13;&#10;&#13;&#10;";    
+  editor.insert(document.getElementById('code_output').value,1);  
+
+ }
+
+ // function for image creation
+
+ function addimage() {
+ 	 // ace editor set value.
+    var editor = ace.edit("editor");
+    var stitle = document.getElementById("image_title").value;
+ 	var image_classifier = document.getElementById("image_class").value;
+    var codebin = document.getElementById("code_output");
+
+   codebin.innerHTML = " ";
+   codebin.innerHTML += " //"+stitle+"&#13;&#10;&#13;&#10;";
+   codebin.innerHTML += "$wp_customize->add_setting('"+image_classifier+"',array(&#13;&#10;";
+   codebin.innerHTML += "));&#13;&#10;";
+
+  codebin.innerHTML += 	"$wp_customize->add_control(new WP_Customize_Cropped_Image_Control($wp_customize, '"+image_classifier+"', array(&#13;&#10;";
+  codebin.innerHTML += 	"	'label' => '"+stitle+"',&#13;&#10;";
+  codebin.innerHTML += 	"	'section' => 'bb_demo_session',&#13;&#10;";
+  codebin.innerHTML += 	"	'settings' => '"+image_classifier+"',&#13;&#10;";
+  codebin.innerHTML += 	"	'width' => 5000,&#13;&#10;";
+  codebin.innerHTML += 	"	'height' => 5000&#13;&#10;";
+  codebin.innerHTML += 	"	)));&#13;&#10;&#13;&#10;";
+  editor.insert(document.getElementById('code_output').value,1);  
+
+ }
+</script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/php");
+</script>
