@@ -82,7 +82,7 @@ var urx = document.getElementById("data");
       addimage(); // call image function..
      }
      if (syntax[0]=="sec"){
-      section = syntax[1];
+      section = syntax[1]+"_section";
      }
   }
 
