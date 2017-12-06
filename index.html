@@ -3,6 +3,7 @@
 <title>Crest</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.7/sweetalert2.all.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="./css/crest.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js"></script>
@@ -12,7 +13,7 @@
 
 <div class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-text-white dark-border-right" style="display:none;background-color:#272822;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large w3-hover-black"
-  onclick="w3_close()"><img src="./img/crest.png" class="w3-margin" width="150px;"></button>
+  onclick="w3_close()"><img src="./img/crest.png" class="w3-margin" width="130px;"></button>
   <div class="w3-small">
       <a href="#" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-area-chart"></i> Open Tag History</a>
       <a href="#" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-file-code-o"></i> Import Code</a>
@@ -72,6 +73,12 @@ function w3_close() {
        position: fixed;
     }
 </style>
+
+<script>
+swal(
+  'hello'
+  )
+</script>
 
 <body>
 
