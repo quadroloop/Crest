@@ -1,10 +1,8 @@
-// wordpress Editable Content code generator;
+// Crest | Code builder toolkit
 // Bryce Mercines 2017
+// functions file..
 
-window.onload = function() {
-  setTimeout("w3_open()",500); // open dashboard
-  document.getElementById("data").focus(); // focus on command bar..
-}
+
 
 
 // Important global variables for templating
@@ -15,6 +13,9 @@ var descript_text; // description text
 var descript_classifier; // dexription classifier
 var image_classifier; // image class
 var section = "none";
+var record_values = []; // array of sumitted values
+var val_nav = 0; //navigation integer
+var unshift  = 0;
 
 
 // Pressing Enter key!
@@ -46,7 +47,23 @@ var urx = document.getElementById("data");
           log.innerHTML = " ";
           retcount = 0;
         }
+        // record sumitted values
+        record_values.push(urx.value);
       }
+
+      // use arrow keys to navigate recent values submitted
+      // arrow down
+      if (e.keyCode === 40 || e.keyCode === 38) {
+        if(record_values.length > 0 || val_nav > record_values.length){
+        val_nav++;
+        if (val_nav == record_values.length) {
+            val_nav = 0;
+         }
+         urx.value = record_values[val_nav];
+       }else{
+        // do nothing if array of subitted values is empty
+       }
+     }
     });
 
 
@@ -153,4 +170,49 @@ function addhead(){
 
  }
 
-   
+ 
+// clear editor value; 
+function clearcode() {
+  editor.setValue() = "";
+}
+
+//importing code template
+function import_template() {
+ swal.setDefaults({
+  input: 'textarea',
+  confirmButtonText: 'Next &rarr;',
+  showCancelButton: true,
+  progressSteps: ['1', '2']
+})
+
+var steps = [
+  {
+    title: 'Import Code Template',
+    text: 'Paste your template code here'
+  },
+  'Edit content parameters',
+]
+
+swal.queue(steps).then((result) => {
+  swal.resetDefaults()
+
+  if (result.value) {
+    swal({
+      title: 'Template Generated',
+      html:
+        'Results: <pre>' +
+          JSON.stringify(result.value) +
+        '</pre>',
+      confirmButtonText: 'OK'
+    })
+  }
+})
+}
+
+
+ // Prevent Browser from closing
+
+ window.onbeforeunload = function () {
+        return "You have attempted to leave this page. Are you sure?";
+};
+
