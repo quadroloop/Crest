@@ -3,10 +3,7 @@
 <title>Crest</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script
-        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
-        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.7/sweetalert2.all.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="./css/crest.css">
@@ -21,7 +18,7 @@
         <!--small navbar-->
         <a class="w3-bar-item w3-center"><i class="w3-button w3-hover-purple fa fa-bars w3-text-grey w3-round" onclick="open_tools();"></i><i class="w3-round w3-button w3-hover-purple fa fa-gear w3-text-grey" onclick="open_settings();"></i><i class="w3-round w3-button w3-hover-purple fa fa-chevron-circle-left w3-text-grey"  onclick="w3_close()"></i></a>
       </div>
-  <div class="w3-small">
+  <div id="tab" class="w3-small">
       <!--tools tab-->
       <a id="tool_state" class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-map w3-text-grey"></i> TOOLS</a>
       <div id="tools" class="w3-animate-left">
@@ -80,8 +77,10 @@
 
 
 
-<script src="./js/crest-ui.js"></script>    
+<script src="./js/crest-ui.js"></script>   
 <script src="./js/crest.js"></script>
+<script src="./js/crest-commands.js"></script> 
+
 <script> 
 var editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");

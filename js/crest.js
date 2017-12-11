@@ -16,6 +16,7 @@ var section = "none";
 var record_values = []; // array of sumitted values
 var val_nav = 0; //navigation integer
 var unshift  = 0;
+var command_pass; // data to be passed to the kernel function for UI commands
 
 
 // Pressing Enter key!
@@ -39,6 +40,10 @@ var urx = document.getElementById("data");
           log.innerHTML += '<a class="w3-text-green"><i class="fa fa-slack"></i> WP-QUERY. ['+urx.value+'] Syntax OK</a>  ';
           process_pointer();
         }else{
+          if(syntax[0]==""){
+            command_pass = urx.value;
+            crest_kernel();
+          }
           log.innerHTML += '<a class="w3-text-red"><i class="fa fa-slack"></i> WP-ERROR (fatal) ['+urx.value+'] Type Not Found.</a>  ';
         }
 
@@ -48,7 +53,12 @@ var urx = document.getElementById("data");
           retcount = 0;
         }
         // record sumitted values
+        if (record_values.indexOf(urx.value) > -1){
+        // do nothing
+      }else{
         record_values.push(urx.value);
+      }
+        urx.value = ""; // empty command box after submission
       }
 
       // use arrow keys to navigate recent values submitted

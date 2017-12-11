@@ -8,7 +8,8 @@ body {
 
 .crest-logo {
 	width: 130px;
-	margin:10px;
+	margin-left: 33px;
+
 }
 
 #editor { 
@@ -38,3 +39,4 @@ body {
 #settings {
   display: none;
 }
+
