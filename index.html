@@ -28,11 +28,12 @@
       <a class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-slack w3-text-grey"></i> API</a>
       <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-pink"><i class="fa fa-circle"></i> POST</a>
       <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-blue"><i class="fa fa-circle"></i> GET</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-green"><i class="fa fa-circle"></i> EXPORT</a>
       <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-amber"><i class="fa fa-circle"></i> SEND</a>
       <a class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-folder-open w3-text-grey"></i> FILE</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-pink"><i class="fa fa-file"></i> SAVE</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-blue"><i class="fa fa-upload"></i> UPLOAD</a>
+      <a onclick="save();" class="w3-bar-item w3-button w3-hover-purple w3-text-pink"><i class="fa fa-file"></i> SAVE</a>
+      <a onclick="upload();" class="w3-bar-item w3-button w3-hover-purple w3-text-blue"><i class="fa fa-upload"></i> UPLOAD</a>
+      <input id="file_holder" type="file">
+
       </div>
       <!--end of tools tab-->
       <!--settings tab-->
@@ -40,7 +41,7 @@
       <a href="#" class="w3-bar-item w3-button w3-hover-purble w3-text-grey"><i class="fa fa-toggle-on w3-text-blue"></i> Incremental binding</a>
       <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-toggle-on w3-text-blue"></i> Data Logging</a>
        <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-toggle-off w3-text-grey"></i> Online Save</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-bullseye"></i> View Commands</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-bullseye w3-text-yellow"></i> View Commands</a>
       <a class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-terminal w3-text-grey"></i> CODE &amp; EDITOR</a>
       <a onclick="set_editor();" class="w3-bar-item w3-button w3-hover-purple w3-text-pink"><i class="fa fa-cogs"></i> Set Preferences</a>
       </div>
@@ -74,7 +75,7 @@
 
 </div>
 
-
+<!-- file input -->
 
 
 <script src="./js/crest-ui.js"></script>   

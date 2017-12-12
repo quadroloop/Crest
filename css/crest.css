@@ -40,3 +40,12 @@ body {
   display: none;
 }
 
+#file_holder {
+  display:none;
+  color: gainsboro;
+  background: #333 !important;
+}
+
+#file_holder::-webkit-file-upload-button {
+  visibility: hidden;
+}

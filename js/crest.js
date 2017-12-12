@@ -220,6 +220,68 @@ swal.queue(steps).then((result) => {
 }
 
 
+//file upload
+
+function file_chk() {
+  if ( file_holder.value == [ ] ){
+    setTimeout("file_chk();",200)
+  }else{
+    // do nothing
+    setTimeout("upload_process();",200);
+   }
+}
+
+function upload() {
+  var file_holder = document.getElementById("file_holder");
+  file_holder.value = "";
+  file_holder.click();
+  file_chk();
+}
+
+function upload_process()
+{
+    var fileToLoad = document.getElementById("file_holder").files[0];
+    var fileReader = new FileReader();
+    fileReader.onload = function(fileLoadedEvent)
+    {
+        var textFromFileLoaded = fileLoadedEvent.target.result;
+        editor.setValue(textFromFileLoaded);
+        uploaded = 1;
+    };
+    fileReader.readAsText(fileToLoad, "UTF-8");
+}
+
+
+
+function save() {
+    var editor = ace.edit("editor");  
+    var script = editor.getValue();
+    var textToSave = script;
+    var textToSaveAsBlob = new Blob([textToSave], {type:"text/plain"});
+    var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+    var fileNameToSaveAs = "crest.file";
+
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "Download File";
+    downloadLink.href = textToSaveAsURL;
+    downloadLink.onclick = destroyClickedElement;
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+
+    downloadLink.click();
+  }
+
+  // destroy clicked element for file.js
+  function destroyClickedElement(event)
+{
+    document.body.removeChild(event.target);
+}
+
+
+
+
+
  // Prevent Browser from closing
 
  window.onbeforeunload = function () {
