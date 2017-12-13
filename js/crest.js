@@ -36,7 +36,7 @@ var urx = document.getElementById("data");
           log.innerHTML += '<a class="w3-text-green"><i class="fa fa-slack"></i> WP-QUERY. ['+urx.value+'] Syntax OK</a>  ';
          }
          
-         if( syntax[0]=="dt"||syntax[0]=="ht"||syntax[0]=="img"||syntax[0]=="sec"){
+         if( syntax[0]=="dt"||syntax[0]=="ht"||syntax[0]=="img"||syntax[0]=="sec"||syntax[0]=="affix"){
           log.innerHTML += '<a class="w3-text-green"><i class="fa fa-slack"></i> WP-QUERY. ['+urx.value+'] Syntax OK</a>  ';
           process_pointer();
         }else{
@@ -111,7 +111,10 @@ var urx = document.getElementById("data");
      if (syntax[0]=="sec"){
       section = syntax[1]+"_section";
      }
-  }
+     if (syntax[0]=="affix"){
+       add_affix();
+     }
+  } // end of process pointer
 
 
 function addhead(){
@@ -186,13 +189,22 @@ function clearcode() {
   editor.setValue() = "";
 }
 
+//tag history
+function tag_history() {
+  swal(
+    'Feature under Developement',
+    'viewing extracted tags..',
+    'error'
+    )
+}
+
 //importing code template
 function import_template() {
  swal.setDefaults({
   input: 'textarea',
   confirmButtonText: 'Next &rarr;',
   showCancelButton: true,
-  progressSteps: ['1', '2']
+  progressSteps: ['#']
 })
 
 var steps = [
@@ -200,27 +212,87 @@ var steps = [
     title: 'Import Code Template',
     text: 'Paste your template code here'
   },
-  'Edit content parameters',
 ]
 
 swal.queue(steps).then((result) => {
   swal.resetDefaults()
 
   if (result.value) {
-    swal({
-      title: 'Template Generated',
-      html:
-        'Results: <pre>' +
-          JSON.stringify(result.value) +
-        '</pre>',
-      confirmButtonText: 'OK'
-    })
+    var hold_code = document.getElementById("output");
+    hold_code.value = "";
+    hold_code.value = result.value;
+    var lines = hold_code.value.split("\n");
+    for(var i=0;i<lines.length;i++) {
+      // do some shit here
+    }
   }
 })
 }
 
 
-//file upload
+
+//API functions
+
+function api_POST() {
+ swal(
+  'Feature Under Developement',
+  'you called a POST API function',
+  'error'
+)
+}
+
+function api_GET() {
+ swal(
+  'Feature Under Developement',
+  'you called a GET API function',
+  'error'
+)
+}
+
+function api_SEND() {
+ swal(
+  'Feature under Developement',
+  'you called a SEND API function',
+  'error'
+)
+}
+
+function api_listen() {
+  swal(
+   'CREST API Listener',
+   'Listening to Crest API Server',
+   'error' 
+    )
+}
+
+
+
+// add suffix and prefix functions from text
+// TextMechanic.com
+// (c) http://textmechanic.com/wp-content/uploads/source/Add-Prefix-Suffix-to-Text.html
+
+function add_affix(){
+var inputdata = document.getElementById("data").value;
+var affix = inputdata.split("#");  
+var prfx = affix[1];
+var sufx = affix[2];
+var text = editor.getValue();
+var belong2 = 'pbclevtug grkgzrpunavp.pbz';
+text = text.replace(/\r/g,'');
+text = text.split(/\n/);
+var textlen = text.length;
+var textarrout = new Array();
+for(var x=0;x<textlen;x++){
+textarrout[x] = prfx + text[x] + sufx;}
+textout = textarrout.join('\n');
+document.getElementById('output').value = textout;
+editor.setValue(document.getElementById("output").value);
+count_me();}
+
+
+
+
+// File functions
 
 function file_chk() {
   if ( file_holder.value == [ ] ){

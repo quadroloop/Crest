@@ -12,7 +12,7 @@
 <link rel="icon" href="./img/icon.png">
 <body>
 
-<div class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-text-white dark-border-right" style="display:none;background-color:#272822;" id="mySidebar">
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-text-white dark-border-right" style="display:none;background-color:#272822; overflow: hidden;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large w3-hover-black"><center><img src="./img/crest.png" class="crest-logo"></center></button>
     <div class="w3-bar dark-border-top dark-border-bottom">
         <!--small navbar-->
@@ -22,41 +22,47 @@
       <!--tools tab-->
       <a id="tool_state" class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-map w3-text-grey"></i> TOOLS</a>
       <div id="tools" class="w3-animate-left">
-      <a href="#" class="w3-bar-item w3-text-grey w3-button w3-hover-purple"><i class="fa fa-area-chart w3-text-amber"></i> Open Tag History</a>
-      <a onclick="import_template();" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-copy w3-text-blue"></i> Import Template Code</a>
-      <a onclick="clearcode();" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-refresh w3-text-red"></i> Clear</a>
-      <a class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-slack w3-text-grey"></i> API</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-pink"><i class="fa fa-circle"></i> POST</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-blue"><i class="fa fa-circle"></i> GET</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-amber"><i class="fa fa-circle"></i> SEND</a>
-      <a class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-folder-open w3-text-grey"></i> FILE</a>
-      <a onclick="save();" class="w3-bar-item w3-button w3-hover-purple w3-text-pink"><i class="fa fa-file"></i> SAVE</a>
-      <a onclick="upload();" class="w3-bar-item w3-button w3-hover-purple w3-text-blue"><i class="fa fa-upload"></i> UPLOAD</a>
-      <input id="file_holder" type="file">
-
+      <div class="scrollbar" id="style-4">
+      <div class="force-overflow">
+         <a onclick="tag_history();" class="w3-bar-item w3-text-grey w3-button w3-hover-purple"><i class="fa fa-area-chart w3-text-amber"></i> Open Tag History</a>
+         <a onclick="import_template();" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-copy w3-text-blue"></i> Import Template Code</a>
+         <a onclick="clearcode();" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-refresh w3-text-red"></i> Clear</a>
+         <a class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-slack w3-text-grey"></i> API</a>
+         <a onclick="api_POST();" class="w3-bar-item w3-button w3-hover-purple w3-text-pink"><i class="fa fa-circle"></i> POST</a>
+         <a onclick="api_GET();" class="w3-bar-item w3-button w3-hover-purple w3-text-blue"><i class="fa fa-circle"></i> GET</a>
+         <a onclick="api_SEND();" class="w3-bar-item w3-button w3-hover-purple w3-text-amber"><i class="fa fa-circle"></i> SEND</a>
+         <a onclick="api_listen()" class="w3-bar-item w3-button w3-hover-purple w3-text-green"><i class="fa fa-hashtag"></i> LISTEN</a>
+         <a class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-folder-open w3-text-grey"></i> FILE</a>
+         <a onclick="save();" class="w3-bar-item w3-button w3-hover-purple w3-text-pink"><i class="fa fa-file"></i> SAVE</a>
+         <a onclick="upload();" class="w3-bar-item w3-button w3-hover-purple w3-text-blue"><i class="fa fa-upload"></i> UPLOAD</a>
+         <input id="file_holder" type="file">
+      </div>
+      </div>
       </div>
       <!--end of tools tab-->
       <!--settings tab-->
       <div id="settings" class="w3-animate-left">
-      <a href="#" class="w3-bar-item w3-button w3-hover-purble w3-text-grey"><i class="fa fa-toggle-on w3-text-blue"></i> Incremental binding</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-toggle-on w3-text-blue"></i> Data Logging</a>
-       <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-toggle-off w3-text-grey"></i> Online Save</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-bullseye w3-text-yellow"></i> View Commands</a>
-      <a class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-terminal w3-text-grey"></i> CODE &amp; EDITOR</a>
-      <a onclick="set_editor();" class="w3-bar-item w3-button w3-hover-purple w3-text-pink"><i class="fa fa-cogs"></i> Set Preferences</a>
+       <div class="scrollbar" id="style-4">
+       <div class="force-overflow">
+          <a href="#" class="w3-bar-item w3-button w3-hover-purble w3-text-grey"><i class="fa fa-toggle-on w3-text-blue"></i> Incremental binding</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-toggle-on w3-text-blue"></i> Data Logging</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-toggle-off w3-text-grey"></i> Online Save</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-bullseye w3-text-yellow"></i> View Commands</a>
+          <a class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-terminal w3-text-grey"></i> CODE &amp; EDITOR</a>
+          <a onclick="set_editor();" class="w3-bar-item w3-button w3-hover-purple w3-text-pink"><i class="fa fa-cogs"></i> Set Preferences</a>
+        </div>
+        </div>
       </div>
-
   </div>
 </div>
 
 <div id="main" style="position:fixed;">
 <!--responsive body of document-->
-<div id="editor" class="dark-border-bottom"></div>
-<div id="editor2" class=""></div>
-
+  <div id="editor" class="dark-border-bottom"></div>
     <div class="data_log">
        <div class="w3-bar dark-border-bottom">
-           <a class="w3-bar-item w3-text-grey"><i class="fa fa-slack w3-text-blue"></i> Data Logs</a>
+           <a class="w3-bar-item w3-text-grey w3-small"><i class="fa fa-slack w3-text-blue"></i> Data Logs | </a>
+           <a class="w3-bar-item w3-padding-small dark-border w3-small w3-round w3-text-white"> Sample tab</a>
         </div>
           <div id="logs" style="margin-left: 10px" class="w3-small"></div>
    </div>
@@ -64,13 +70,14 @@
 <div class="w3-bottom">
  <div class="w3-bar dark-border-top" style="background-color:#272822;">
     <input id="data" class="w3-text-white w3-input w3-bar-item w3-round dark-border w3-margin" placeholder="Command Here.." type="text" style="width:800px;background-color:rgb(1, 6, 34);">
-    <a id="open-db" class="dash-switch-btn w3-text-white w3-small w3-round w3-margin" onclick="w3_open()"><i class="fa fa-toggle-on fa-2x"></i></a>
+    <a id="open-db" class="dash-switch-btn w3-text-white w3-small w3-round w3-margin" onclick="w3_open()"><i class="fa fa-chevron-circle-right fa-2x"></i></a>
  </div>
 </div> 
 </div>
 
 <!--code container-->
 <textarea id="code_output" placeholder="Code Output" style="display: none;"></textarea>
+<textarea id="output"></textarea>
 
 
 </div>
