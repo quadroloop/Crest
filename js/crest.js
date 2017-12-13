@@ -199,6 +199,9 @@ function tag_history() {
 }
 
 //importing code template
+var binder = "[#"; 
+var parser = "temp_item[";
+var parse_count = 0;
 function import_template() {
  swal.setDefaults({
   input: 'textarea',
@@ -218,18 +221,58 @@ swal.queue(steps).then((result) => {
   swal.resetDefaults()
 
   if (result.value) {
-    var hold_code = document.getElementById("output");
+    var hold_code = document.getElementById("code_base");
     hold_code.value = "";
     hold_code.value = result.value;
-    var lines = hold_code.value.split("\n");
-    for(var i=0;i<lines.length;i++) {
-      // do some shit here
-    }
+  
+ template_parser(); // 1st call
+ binder = "#]";
+parser = "]";  
+template_parser();
+ binder = "[#"; 
+parser = "temp_item[";
+ alert(hold_code.value);
   }
 })
 }
 
+function template_parser() {  
+var hold_code = document.getElementById("code_base");
+var searchfor = '';
+var replacewith = parser.replace(/\r/gi,'');
+var text = hold_code.value.replace(/\r/gi,'')
+var flagg = 'g';
+var flagi = 'i';
+var flagm = '';
+if(document.getElementById('globl').checked == false) flagg = '';
+if(document.getElementById('case_sen').checked == true) flagi = '';
+if(document.getElementById('multi_line') != null)
+if(document.getElementById('multi_line').checked == true) flagm = 'm';
+var flags = flagg + flagi + flagm;
+searchfor = binder.replace(/\r/gi,'').replace(/([.*+?^=!:${}()|\[\]\/\\])/g,'\\$1');
+var killfun = 'no';
+try{var searchexp = new RegExp(searchfor,flags);}
+catch(err){
+alert('Something is incorrect (' + err + ') within your regular expression.\nBe sure special characters .*+?^=!:${}()|\\ used as literals have been escaped with a backslash.');
+killfun = 'yes';}
+if(killfun == 'no'){
+var rcount = 0;
+var matched = text.match(searchexp);
+if(matched != null) rcount = matched.length;
+text = text.replace(searchexp,replacewith);
+hold_code.value = text;
+}}
 
+
+
+// success alert for templating
+function success() {
+  swal (
+    "Template Created!",
+    "successfully imported code!",
+    'success'
+    )
+}
 
 //API functions
 
