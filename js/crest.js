@@ -231,7 +231,10 @@ parser = "]";
 template_parser();
  binder = "[#"; 
 parser = "temp_item[";
- alert(hold_code.value);
+  var code_bank = document.getElementById("code_bank");
+  code_bank.value += "\n"+hold_code.value;
+  code_bank.value += "\n\n[==============]"; // to break deltas apart
+  editor.setValue(code_bank.value);
   }
 })
 }
