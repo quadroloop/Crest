@@ -42,19 +42,23 @@
           <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-toggle-on w3-text-blue"></i> Data Logging</a>
           <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-toggle-off w3-text-grey"></i> Online Save</a>
           <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-bullseye w3-text-yellow"></i> View Commands</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-blue"><i class="fa fa-tasks w3-text-yellow"></i> View Config</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-blue"><i class="fa fa-navicon w3-text-yellow"></i> Export Settings</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-blue"><i class="fa fa-braille w3-text-yellow"></i> Import Settings</a>
           <a class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-terminal w3-text-grey"></i> CODE &amp; EDITOR</a>
           <a onclick="set_editor();" class="w3-bar-item w3-button w3-hover-purple w3-text-pink"><i class="fa fa-cogs"></i> Set Preferences</a>
+          <a class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-hashtag w3-text-grey"></i> ABOUT</a>
+
       </div>
   </div>
 </div>
 
 <div id="main" style="position:fixed;">
 <!--responsive body of document-->
-  <div id="editor" class="dark-border-bottom"></div>
-    <div class="data_log">
+  <div id="editor"></div>
+    <div class="data_log dark-border">
        <div class="w3-bar dark-border-bottom">
            <a class="w3-bar-item w3-text-grey w3-small"><i class="fa fa-slack w3-text-blue"></i> Data Logs | </a>
-           <a class="w3-bar-item w3-padding-small dark-border w3-small w3-round w3-text-white"> Sample tab</a>
         </div>
           <div id="logs" style="margin-left: 10px" class="w3-small"></div>
    </div>
@@ -72,7 +76,7 @@
 <textarea id="output"></textarea>
 <textarea id="code_base"></textarea>
 <textarea id="code_bank"></textarea>
-
+<textarea id="bind_offset"></textarea>
 <!--identifiers-->
 <div style="display:none">
 <input title="Case Sensitive" type="checkbox" id="globl" CHECKED />Global matching.

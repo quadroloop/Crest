@@ -1,3 +1,9 @@
+
+html, body{
+    height: 99%;
+    overflow:hidden;
+}
+
 body {
 	background-color:#272822;
 }
@@ -11,17 +17,26 @@ body {
 }
 
 #editor { 
-       width: 100%;
-       height: 60%;
+       width: 70%;
+       height: 88%;
+       top: 0;
        position: fixed;
 
     }
 
     .data_log { 
-       width: 100%;
-       top: 61%;
+       width: 20%;
+       height: 88%;
+       overflow-y: auto;
+       top: 0;
+       bottom: 0;
+       right:0;
        position: fixed;
+       background-color: #272822;
     }
+
+  #logs {
+  }  
 
 
 .dash-switch-btn{border:none;display:inline-block;outline:0;padding:8px 16px;vertical-align:middle;overflow:hidden;text-decoration:none;color:inherit;background-color:inherit;text-align:center;cursor:pointer;white-space:nowrap}
@@ -33,7 +48,7 @@ body {
 .tool_state {
 	margin:10px;
 	float: left;
-}
+	}
 
 #settings {
   display: none;
@@ -60,4 +75,12 @@ body {
 
 #code_bank {
 display: none;
+}
+
+#bind_offset{
+  display: none;
+}
+
+#mySidebar {
+	height: 100%;
 }
