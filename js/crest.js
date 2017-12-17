@@ -36,7 +36,8 @@ var urx = document.getElementById("data");
           log.innerHTML += '<a class="w3-text-green"><i class="fa fa-circle"></i>Syntax OK</a><br>';
          }
          
-         if( syntax[0]=="dt"||syntax[0]=="ht"||syntax[0]=="img"||syntax[0]=="sec"||syntax[0]=="affix"||syntax[0]=="tmp"){
+         if( 
+          syntax[0]=="dt"||syntax[0]=="ht"||syntax[0]=="img"||syntax[0]=="sec"||syntax[0]=="affix"||syntax[0]=="tmp"||syntax[0]=="tx"||syntax[0]=="del"){
           log.innerHTML += '<a class="w3-text-green"><i class="fa fa-circle"></i> Syntax OK</a><br>';
           process_pointer();
         }else{
@@ -114,6 +115,12 @@ var urx = document.getElementById("data");
      }
      if (syntax[0]=="tmp"){
       tmp_pull();
+     }
+     if (syntax[0]=="tx"){
+       tx_api();
+     }
+     if (syntax[0]=="del"){
+       del_api();
      }
   } // end of process pointer
 
@@ -320,11 +327,10 @@ repo_offset = text;
   editor.insert(sector_pull,1);    
 }
 
-// success alert for templating
 function error() {
  swal(
   'Error!',
-  'Template empty!',
+  'Empy Query.',
   'error'
 )
 
@@ -356,12 +362,78 @@ function api_SEND() {
 )
 }
 
+var api_link;
 function api_listen() {
-  swal(
-   'CREST API Listener',
-   'Listening to Crest API Server',
-   'error' 
-    )
+swal({
+  title: '<i class="fa fa-hashtag w3-text-green"></i> CREST API Listener',
+  html:
+   '<input class="w3-border w3-border w3-input w3-round" placeholder="Link of API" id="api-link">',
+  showCancelButton: true,
+  confirmButtonColor: 'rgb(110, 11, 172)',
+  cancelButtonColor: '#d33',
+  confirmButtonText: '<i class="fa fa-chain"></i> Connect'
+}).then((result) => {
+  if (result.value) {
+    var link = document.getElementById("api-link");
+    if(link.value == [] || link.value == [ ]) {
+       error();
+    }else{
+      listen_api(); // call api listener function..
+      api_link = link.value;
+    }
+  }
+})
+}
+
+var nflag = 0;
+
+function listen_api() {
+  var api = document.getElementById("api-link");
+  var api_parsed = document.getElementById("api-frame");
+  nflag =1;
+  api_parsed.src = api.value;
+  swal({
+    showConfirmButton: false,
+    title: '<i class="fa fa-spinner fa-2x w3-spin w3-text-indigo"></i><br> Please Wait..',
+    html: '<p>connecting to data Crest API at:</p>'+
+    '<p class="w3-text-indigo">'+api.value+'</p>'
+    })
+}
+
+var req_url = "?q=listen";
+
+function tx_api() {
+// transmit
+ var query = document.getElementById("data").value.split("#");
+ req_url = "?q=listen&tx="+query[1];
+}
+
+
+function del_api() {
+  var query = document.getElementById("data").value.split("#");
+ req_url = "?q=listen&del="+query[1];
+}
+
+
+function api_response() {
+  var api = api_link;
+  if(nflag==1){
+  swal.close();
+  swal({showConfirmButton: false, title: 'Success', text: 'connected to Crest API', timer: 1000, type: 'success'});
+  nflag = 0;
+  // api data binding
+  var auto_refresh = setInterval(
+      function ()
+      {
+    var src_api = api+req_url;
+         $('#api-base').load(src_api).fadeIn("slow");
+        var api_content = document.getElementById("api-base").value;
+        editor.setValue(api_content);
+      }, 200); // refresh every 10000 milliseconds
+
+}else{ 
+  // do nothing
+}
 }
 
 
