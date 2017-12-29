@@ -22,8 +22,6 @@
       <!--tools tab-->
       <a id="tool_state" class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-map w3-text-grey"></i> TOOLS</a>
       <div id="tools" class="w3-animate-left">
-      <div class="scrollbar" id="style-4">
-      <div class="force-overflow">
          <a onclick="tag_history();" class="w3-bar-item w3-text-grey w3-button w3-hover-purple"><i class="fa fa-area-chart w3-text-amber"></i> Open Tag History</a>
          <a onclick="import_template();" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-copy w3-text-blue"></i> Import Template Code</a>
          <a onclick="clearcode();" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-refresh w3-text-red"></i> Clear</a>
@@ -37,32 +35,30 @@
          <a onclick="upload();" class="w3-bar-item w3-button w3-hover-purple w3-text-blue"><i class="fa fa-upload"></i> UPLOAD</a>
          <input id="file_holder" type="file">
       </div>
-      </div>
-      </div>
       <!--end of tools tab-->
       <!--settings tab-->
       <div id="settings" class="w3-animate-left">
-       <div class="scrollbar" id="style-4">
-       <div class="force-overflow">
           <a href="#" class="w3-bar-item w3-button w3-hover-purble w3-text-grey"><i class="fa fa-toggle-on w3-text-blue"></i> Incremental binding</a>
           <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-toggle-on w3-text-blue"></i> Data Logging</a>
           <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-toggle-off w3-text-grey"></i> Online Save</a>
           <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-grey"><i class="fa fa-bullseye w3-text-yellow"></i> View Commands</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-blue"><i class="fa fa-tasks w3-text-yellow"></i> View Config</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-blue"><i class="fa fa-navicon w3-text-yellow"></i> Export Settings</a>
+          <a href="#" class="w3-bar-item w3-button w3-hover-purple w3-text-blue"><i class="fa fa-braille w3-text-yellow"></i> Import Settings</a>
           <a class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-terminal w3-text-grey"></i> CODE &amp; EDITOR</a>
           <a onclick="set_editor();" class="w3-bar-item w3-button w3-hover-purple w3-text-pink"><i class="fa fa-cogs"></i> Set Preferences</a>
-        </div>
-        </div>
+          <a class="dark-border w3-round w3-padding-small w3-text-grey tool_state"><i class="fa fa-hashtag w3-text-grey"></i> ABOUT</a>
+
       </div>
   </div>
 </div>
 
 <div id="main" style="position:fixed;">
 <!--responsive body of document-->
-  <div id="editor" class="dark-border-bottom"></div>
-    <div class="data_log">
+  <div id="editor"></div>
+    <div class="data_log dark-border">
        <div class="w3-bar dark-border-bottom">
            <a class="w3-bar-item w3-text-grey w3-small"><i class="fa fa-slack w3-text-blue"></i> Data Logs | </a>
-           <a class="w3-bar-item w3-padding-small dark-border w3-small w3-round w3-text-white"> Sample tab</a>
         </div>
           <div id="logs" style="margin-left: 10px" class="w3-small"></div>
    </div>
@@ -78,7 +74,14 @@
 <!--code container-->
 <textarea id="code_output" placeholder="Code Output" style="display: none;"></textarea>
 <textarea id="output"></textarea>
-
+<textarea id="code_base"></textarea>
+<textarea id="code_bank"></textarea>
+<textarea id="bind_offset"></textarea>
+<!--identifiers-->
+<div style="display:none">
+<input title="Case Sensitive" type="checkbox" id="globl" CHECKED />Global matching.
+<input title="Case Sensitive" type="checkbox" id="case_sen" />Case sensitive.
+</div>
 
 </div>
 
@@ -88,6 +91,9 @@
 <script src="./js/crest-ui.js"></script>   
 <script src="./js/crest.js"></script>
 <script src="./js/crest-commands.js"></script> 
+
+<iframe src="" id="api-frame" onload="api_response();" style="display:none;"></iframe>
+<textarea id="api-base" style="display:none;"></textarea>
 
 <script> 
 var editor = ace.edit("editor");

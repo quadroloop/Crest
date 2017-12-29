@@ -21,7 +21,7 @@ var command_pass; // data to be passed to the kernel function for UI commands
 
 // Pressing Enter key!
 
-        var retcount = 0;
+      
 
 var urx = document.getElementById("data");
      urx.addEventListener("keydown", function (e) {
@@ -31,34 +31,33 @@ var urx = document.getElementById("data");
         var syntax = str.split("#");
         // process syntax
          if( syntax.length > 4 ){
-           log.innerHTML += '<a class="w3-text-red"><i class="fa fa-slack"></i> WP-ERROR (fatal) ['+urx.value+'] Syntax too long, not supported!</a>  ';
+           log.innerHTML += '<a class="w3-text-red"><i class="fa fa-circle"></i> syntax not supported!</a><br>';
          }else{
-          log.innerHTML += '<a class="w3-text-green"><i class="fa fa-slack"></i> WP-QUERY. ['+urx.value+'] Syntax OK</a>  ';
+          log.innerHTML += '<a class="w3-text-green"><i class="fa fa-circle"></i>Syntax OK</a><br>';
          }
          
-         if( syntax[0]=="dt"||syntax[0]=="ht"||syntax[0]=="img"||syntax[0]=="sec"||syntax[0]=="affix"){
-          log.innerHTML += '<a class="w3-text-green"><i class="fa fa-slack"></i> WP-QUERY. ['+urx.value+'] Syntax OK</a>  ';
+         if( 
+          syntax[0]=="dt"||syntax[0]=="ht"||syntax[0]=="img"||syntax[0]=="sec"||syntax[0]=="affix"||syntax[0]=="tmp"||syntax[0]=="tx"||syntax[0]=="del"){
+          log.innerHTML += '<a class="w3-text-green"><i class="fa fa-circle"></i> Syntax OK</a><br>';
           process_pointer();
         }else{
           if(syntax[0]==""){
             command_pass = urx.value;
             crest_kernel();
           }
-          log.innerHTML += '<a class="w3-text-red"><i class="fa fa-slack"></i> WP-ERROR (fatal) ['+urx.value+'] Type Not Found.</a>  ';
+          log.innerHTML += '<a class="w3-text-red"><i class="fa fa-circle"></i> Command not found.</a><br>';
         }
 
-        retcount++;
-        if(retcount > 30 ){
-          log.innerHTML = " ";
-          retcount = 0;
-        }
+        
         // record sumitted values
         if (record_values.indexOf(urx.value) > -1){
         // do nothing
       }else{
         record_values.push(urx.value);
       }
-        urx.value = ""; // empty command box after submission
+        //urx.value = ""; // empty command box after submission
+       //scroll down after append
+       log.scrollTop = log.scrollHeight;
       }
 
       // use arrow keys to navigate recent values submitted
@@ -83,7 +82,7 @@ var urx = document.getElementById("data");
 
      //check if section is set
        if (section=="none") {
-       log.innerHTML += '<a class="w3-text-red"><i class="fa fa-cube"></i> WP-ERROR (fatal) NO SECTION! SET A SECTION FIRST!</a>  ';
+       log.innerHTML += '<a class="w3-text-red"><i class="fa fa-cube"></i> NO SECTION! SET A SECTION FIRST!</a><br>';
         }else{
           // do nothing
         }
@@ -113,6 +112,15 @@ var urx = document.getElementById("data");
      }
      if (syntax[0]=="affix"){
        add_affix();
+     }
+     if (syntax[0]=="tmp"){
+      tmp_pull();
+     }
+     if (syntax[0]=="tx"){
+       tx_api();
+     }
+     if (syntax[0]=="del"){
+       del_api();
      }
   } // end of process pointer
 
@@ -199,6 +207,9 @@ function tag_history() {
 }
 
 //importing code template
+var binder = "[#"; 
+var parser = "delta[";
+var parse_count = 0;
 function import_template() {
  swal.setDefaults({
   input: 'textarea',
@@ -218,18 +229,112 @@ swal.queue(steps).then((result) => {
   swal.resetDefaults()
 
   if (result.value) {
-    var hold_code = document.getElementById("output");
+    var hold_code = document.getElementById("code_base");
     hold_code.value = "";
     hold_code.value = result.value;
-    var lines = hold_code.value.split("\n");
-    for(var i=0;i<lines.length;i++) {
-      // do some shit here
-    }
-  }
+  // check if template is empty
+  if (result.value == "") {
+    error();
+  }else{
+ template_parser(); // 1st call
+ binder = "#]";
+parser = "]";  
+template_parser();
+ binder = "[#"; 
+parser = "delta[";
+  var code_bank = document.getElementById("code_bank");
+  code_bank.value += "\n"+hold_code.value;
+  code_bank.value += "\n\n[==============]"; // to break deltas apart
+   swal({
+    title:'Success!',
+    text:'code template is imported!',
+    type: 'success',
+    showConfirmButton: false,
+    timer: 1500
+    })
+   // by this point all the you need to do is to pull data from the code bank..
+  } // if result.value is not emply !end
+} 
 })
 }
 
+function template_parser() {  
+var hold_code = document.getElementById("code_base");
+var searchfor = '';
+var replacewith = parser.replace(/\r/gi,'');
+var text = hold_code.value.replace(/\r/gi,'')
+var flagg = 'g';
+var flagi = 'i';
+var flagm = '';
+if(document.getElementById('globl').checked == false) flagg = '';
+if(document.getElementById('case_sen').checked == true) flagi = '';
+if(document.getElementById('multi_line') != null)
+if(document.getElementById('multi_line').checked == true) flagm = 'm';
+var flags = flagg + flagi + flagm;
+searchfor = binder.replace(/\r/gi,'').replace(/([.*+?^=!:${}()|\[\]\/\\])/g,'\\$1');
+var killfun = 'no';
+try{var searchexp = new RegExp(searchfor,flags);}
+catch(err){
+alert('Something is incorrect (' + err + ') within your regular expression.\nBe sure special characters .*+?^=!:${}()|\\ used as literals have been escaped with a backslash.');
+killfun = 'yes';}
+if(killfun == 'no'){
+var rcount = 0;
+var matched = text.match(searchexp);
+if(matched != null) rcount = matched.length;
+text = text.replace(searchexp,replacewith);
+hold_code.value = text;
+}}
 
+
+
+ // pulling template from code bank..
+function tmp_pull() {
+   var repo = document.getElementById("code_bank").value;
+   var repo_sector = repo.split("[==============]");
+   var delta = document.getElementById("data").value.split("#");
+   // bind the data pull from code bank to the current delta..
+   var repo_offset = document.getElementById("bind_offset").value;
+   repo_offset = repo_sector[delta[1]];
+ for(var i=2;i < delta.length;i++){ 
+ var reptest = delta[i];
+ var ctest = "delta["+i+"]";
+   var searchfor = '';
+var replacewith = reptest.replace(/\r/gi,'');
+var text = repo_offset.replace(/\r/gi,'')
+var flagg = 'g';
+var flagi = 'i';
+var flagm = '';
+if(document.getElementById('globl').checked == false) flagg = '';
+if(document.getElementById('case_sen').checked == true) flagi = '';
+if(document.getElementById('multi_line') != null)
+if(document.getElementById('multi_line').checked == true) flagm = 'm';
+var flags = flagg + flagi + flagm;
+searchfor = ctest.replace(/\r/gi,'').replace(/([.*+?^=!:${}()|\[\]\/\\])/g,'\\$1');
+var killfun = 'no';
+try{var searchexp = new RegExp(searchfor,flags);}
+catch(err){
+alert('Something is incorrect (' + err + ') within your regular expression.\nBe sure special characters .*+?^=!:${}()|\\ used as literals have been escaped with a backslash.');
+killfun = 'yes';}
+if(killfun == 'no'){
+var rcount = 0;
+var matched = text.match(searchexp);
+if(matched != null) rcount = matched.length;
+text = text.replace(searchexp,replacewith);
+repo_offset = text;
+}
+}// bind end
+  var sector_pull = repo_offset;
+  editor.insert(sector_pull,1);    
+}
+
+function error() {
+ swal(
+  'Error!',
+  'Empy Query.',
+  'error'
+)
+
+}
 
 //API functions
 
@@ -257,12 +362,78 @@ function api_SEND() {
 )
 }
 
+var api_link;
 function api_listen() {
-  swal(
-   'CREST API Listener',
-   'Listening to Crest API Server',
-   'error' 
-    )
+swal({
+  title: '<i class="fa fa-hashtag w3-text-green"></i> CREST API Listener',
+  html:
+   '<input class="w3-border w3-border w3-input w3-round" placeholder="Link of API" id="api-link">',
+  showCancelButton: true,
+  confirmButtonColor: 'rgb(110, 11, 172)',
+  cancelButtonColor: '#d33',
+  confirmButtonText: '<i class="fa fa-chain"></i> Connect'
+}).then((result) => {
+  if (result.value) {
+    var link = document.getElementById("api-link");
+    if(link.value == [] || link.value == [ ]) {
+       error();
+    }else{
+      listen_api(); // call api listener function..
+      api_link = link.value;
+    }
+  }
+})
+}
+
+var nflag = 0;
+
+function listen_api() {
+  var api = document.getElementById("api-link");
+  var api_parsed = document.getElementById("api-frame");
+  nflag =1;
+  api_parsed.src = api.value;
+  swal({
+    showConfirmButton: false,
+    title: '<i class="fa fa-spinner fa-2x w3-spin w3-text-indigo"></i><br> Please Wait..',
+    html: '<p>connecting to data Crest API at:</p>'+
+    '<p class="w3-text-indigo">'+api.value+'</p>'
+    })
+}
+
+var req_url = "?q=listen";
+
+function tx_api() {
+// transmit
+ var query = document.getElementById("data").value.split("#");
+ req_url = "?q=listen&tx="+query[1];
+}
+
+
+function del_api() {
+  var query = document.getElementById("data").value.split("#");
+ req_url = "?q=listen&del="+query[1];
+}
+
+
+function api_response() {
+  var api = api_link;
+  if(nflag==1){
+  swal.close();
+  swal({showConfirmButton: false, title: 'Success', text: 'connected to Crest API', timer: 1000, type: 'success'});
+  nflag = 0;
+  // api data binding
+  var auto_refresh = setInterval(
+      function ()
+      {
+    var src_api = api+req_url;
+         $('#api-base').load(src_api).fadeIn("slow");
+        var api_content = document.getElementById("api-base").value;
+        editor.setValue(api_content);
+      }, 200); // refresh every 10000 milliseconds
+
+}else{ 
+  // do nothing
+}
 }
 
 
