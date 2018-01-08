@@ -30,7 +30,11 @@ affix#(prefix-here)#(suffix-here)
 ### Tempate Command
 > for calling an imported code template
 ```c
-tmpx#(template-index)#(data-1)#(data-2)#(data-n)
+tmp#(template-index)#(data-1)#(data-2)#(data-n)
+```
+> example commnad.
+```c
+tmp#0#This is the first value of my tempplete to be parsed#this is the second one#
 ```
 > where "n" is the value if which index you wanted crest to bind the data into.
 
