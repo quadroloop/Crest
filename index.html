@@ -10,9 +10,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="icon" href="./img/icon.png">
+<link rel="stylesheet" href="https://rawgit.com/utatti/perfect-scrollbar/master/css/perfect-scrollbar.css">
 <body>
 
-<div class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-text-white dark-border-right" style="display:none;background-color:#272822; overflow: hidden;" id="mySidebar">
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-text-white dark-border-right" style="display:none;background-color:#272822; overflow: auto;" id="mySidebar">
   <button class="w3-bar-item w3-button w3-large w3-hover-black"><center><img src="./img/crest.png" class="crest-logo"></center></button>
     <div class="w3-bar dark-border-top dark-border-bottom">
         <!--small navbar-->
@@ -88,9 +89,11 @@
 <!-- file input -->
 
 
+<script src="https://rawgit.com/utatti/perfect-scrollbar/master/dist/perfect-scrollbar.js"></script>
 <script src="./js/crest-ui.js"></script>   
 <script src="./js/crest.js"></script>
 <script src="./js/crest-commands.js"></script> 
+
 
 <iframe src="" id="api-frame" onload="api_response();" style="display:none;"></iframe>
 <textarea id="api-base" style="display:none;"></textarea>

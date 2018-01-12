@@ -4,6 +4,8 @@
 
 // UI dashboard close and open
 
+var ps = new PerfectScrollbar('#mySidebar');
+
 function w3_open() {
   document.getElementById("main").style.marginLeft = "15%";
   document.getElementById("mySidebar").style.width = "15%";
