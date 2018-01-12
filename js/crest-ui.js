@@ -5,6 +5,12 @@
 // UI dashboard close and open
 
 var ps = new PerfectScrollbar('#mySidebar');
+var ps1 = new PerfectScrollbar('.data_log');
+
+ $( document ).ready(function() {
+      var editorscroll = new PerfectScrollbar('.ace_scrollbar');
+      var editorscroll_h = new PerfectScrollbar('.ace_scrollbar-h');
+    });
 
 function w3_open() {
   document.getElementById("main").style.marginLeft = "15%";
