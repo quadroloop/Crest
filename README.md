@@ -1,7 +1,7 @@
 # Crest
 [![Travis](https://img.shields.io/travis/rust-lang/rust.svg)]() [![Coveralls bitbucket branch](https://img.shields.io/coveralls/bitbucket/pyKLIP/pyklip.svg)]() [![Uptime Robot status](https://img.shields.io/uptimerobot/status/m778918918-3e92c097147760ee39d02d36.svg)]() 
 [![app](https://quadroloop.github.io/Crest/crest-screen-shot.png)]()
- > Crest is an open-source text-editor for code templating and generation through Javascript!
+ > Crest is an open-source text-editor for building single file web apps!
 
 # Demo
 > click to logo to visit the app.
